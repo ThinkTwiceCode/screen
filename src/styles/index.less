@@ -1,0 +1,70 @@
+@import url("./root.less");
+@import url("./transitions.less");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--am-text-color);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(239, 239, 239);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #bfbfbf;
+    border-radius: 8px;
+
+    &:hover {
+      background: #aaa;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: #179a16;
+  }
+}
+
+a {
+  &:hover,
+  &:focus,
+  &:active,
+  &:link,
+  &:visited {
+    color: unset;
+    text-decoration: none;
+  }
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+ul, ol,
+p {
+  margin: 0;
+}
+
+.page-container {
+  padding: var(--am-margin-m);
+}
