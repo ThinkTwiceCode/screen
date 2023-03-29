@@ -83,6 +83,7 @@ const originRouteInstall = router.install;
 router.install = function (app: App<any>) {
   originRouteInstall.call(router, app);
   app.config.globalProperties.$page = $page;
+  app.config.globalProperties.$routerName = RouterName;
 }
 
 router.beforeEach(async (_to, _from, next) => {
@@ -96,12 +97,14 @@ router.beforeEach(async (_to, _from, next) => {
   next();
 });
 
-const documentTitle = useTitle($t('app.title'), { titleTemplate: '%s | 所见即所得' });
+const documentTitle = useTitle($t('app.title'), { titleTemplate: `%s | ${$t('app.slogan')}` });
 router.afterEach((_to) => {
   // 随路由变化而更改文档标题
   if (typeof _to.meta?.title === 'function') {
     const titleText = _to.meta.title() || $t('app.title');
     documentTitle.value = titleText;
+  } else {
+    documentTitle.value = $t('app.title');
   }
 
   // 切换路由后，滚动到页面顶部
@@ -121,5 +124,6 @@ router.afterEach((_to) => {
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $page: typeof $page;
+    $routerName: typeof RouterName;
   }
 }
