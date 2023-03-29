@@ -42,7 +42,16 @@ export const routes:TheRoutesType = [
     path: '/barrage',
     component: () => import('@/views/barrage/index.vue'),
     meta: {
-      title: () => $t('app.page.barrage'),
+      title: () => $t('barrage.title'),
+    }
+  },
+  // 时钟
+  {
+    name: RouterName.Clock,
+    path: '/clock',
+    component: () => import('@/views/clock/index.vue'),
+    meta: {
+      title: () => $t('clock.title'),
     }
   },
   // 测试
