@@ -1,5 +1,5 @@
 import { reactive, nextTick } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from 'nprogress';
 import { useTitle } from '@vueuse/core';
 import { ElLoading } from 'element-plus';
@@ -59,7 +59,7 @@ export const routes:TheRoutesType = [
 ];
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   // scrollBehavior(to, from,savedPosition) {
   //   if (savedPosition) {
