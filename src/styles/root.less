@@ -14,14 +14,11 @@
   --am-padding-l: var(--am-margin-l);
 
   // color
-  --am-text-color: #222;
+  --am-color-white: #fff;
+  --am-color-white-light: rgba(233, 233, 233, 0.75);
   --am-color-black: #222;
+  --am-color-black-light: rgba(99, 99, 99, 0.75);
   --am-primary-color: #409eff;
-
-  // background
-  --am-bg-color: #ffffff;
-  --am-bg-color-hover: #ededed;
-  --am-bg-gray: rgba(233, 233, 233);
 
   //border
   --am-border: 1px solid #eeeeee;
@@ -35,4 +32,16 @@
 
   // z-index
   --am-header-z-index: 11;
+}
+
+html {
+  --am-text-color: var(--am-color-black);
+  --am-bg-color: var(--am-color-white);
+  --am-bg-color-light: var(--am-color-white-light);
+}
+
+html.dark {
+  --am-text-color: var(--am-color-white);
+  --am-bg-color: var(--am-color-black);
+  --am-bg-color-light: var(--am-color-black-light);
 }

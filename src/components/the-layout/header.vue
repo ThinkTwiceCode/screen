@@ -39,7 +39,7 @@ export default { name: 'TheHeader' };
   }
 
   .title-wrap {
-    color: #fff;
+    color: var(--am-color-white);
 
     .title {
       font-size: 16px;

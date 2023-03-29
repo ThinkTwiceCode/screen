@@ -36,7 +36,7 @@ export default { name: 'BaseCard' };
   padding: var(--am-padding-s);
   border-radius: var(--am-border-corner-m);
   overflow: hidden;
-  background: var(--am-bg-gray);
+  background: var(--am-bg-color-light);
 
   .top {
     display: flex;

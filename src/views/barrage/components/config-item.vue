@@ -21,7 +21,6 @@ export default { name: 'ConfigItem' };
 .config-item {
   > .title {
     font-size: 16px;
-    color: #333;
   }
 }
 </style>

@@ -45,7 +45,12 @@ import TheHeader from './header.vue';
 import IconMenuToRight from '@/assets/icon-svg/menu-to-right.svg';
 import IconBack from '@/assets/icon-svg/back.svg';
 
-import { withDefaults, defineProps, ref } from 'vue';
+import {
+  withDefaults, defineProps,
+  ref,
+  watch,
+  onMounted,
+} from 'vue';
 import { ElSwitch } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { ElDrawer } from 'element-plus';
@@ -78,6 +83,18 @@ function backToRoot() {
     name: RouterName.Root,
   });
 }
+
+onMounted(() => {
+  watch(() => appConfigStorage.darkMode, (val) => {
+    console.log('darkMode: ', val);
+    const darkClassName = 'dark';
+    if (val) {
+      document.documentElement.classList.add(darkClassName);
+    } else {
+      document.documentElement.classList.remove(darkClassName);
+    }
+  }, { immediate: true });
+})
 </script>
 <script lang="ts">
 export default { name: 'TheLayout' };
