@@ -1,12 +1,11 @@
 import { ref, onMounted, onBeforeUnmount} from 'vue';
 
 export function useScreenOrientation(onPortrait?: Function, onLandscape?: Function) {
-  const portrait = window.matchMedia("(orientation: portrait)");
-  const isPortraitMode = ref(portrait.matches);
+  const isPortraitMode = ref(true); // 移动设备默认竖屏
 
   function onOrientationChange(e: any) {
     console.log('onOrientationChange: ', e);
-    isPortraitMode.value = Boolean(e.matches);
+    isPortraitMode.value = e.matches;
     if (e.matches) { // 竖屏模式（Portrait mode）
       if (typeof onPortrait === 'function') {
         onPortrait();
@@ -19,11 +18,13 @@ export function useScreenOrientation(onPortrait?: Function, onLandscape?: Functi
   }
   
   onMounted(() => {
+    const portrait = window.matchMedia("(orientation: portrait)");
+    isPortraitMode.value = portrait.matches;
     portrait.addEventListener("change", onOrientationChange);
-  });
 
-  onBeforeUnmount(() => {
-    portrait.removeEventListener('change', onOrientationChange);
+    onBeforeUnmount(() => {
+      portrait.removeEventListener('change', onOrientationChange);
+    });
   });
 
   return isPortraitMode;
