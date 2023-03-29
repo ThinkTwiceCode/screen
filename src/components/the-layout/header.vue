@@ -8,10 +8,21 @@
       <h2 class="title">{{ $t('app.title') }}</h2>
       <h3 class="subtitle">{{ $t('app.subtitleDetails.variant') }}</h3>
     </div>
+
+    <a
+      class="right"
+      target="_blank"
+      :href="WebsiteLink.CurrentGithubProject"
+    >
+      <img :src="IconGithub" />
+    </a>
   </div>
 </template>
 
 <script setup lang="ts">
+import IconGithub from '@/assets/icon-svg/github.svg';
+
+import { WebsiteLink } from '@/config/website-link';
 </script>
 <script lang="ts">
 export default { name: 'TheHeader' };
@@ -49,6 +60,15 @@ export default { name: 'TheHeader' };
     .subtitle {
       font-size: 12px;
       font-weight: 300;
+    }
+  }
+
+  .right {
+    margin-left: auto;
+    display: inline-flex;
+
+    img {
+      width: 30px;
     }
   }
 }

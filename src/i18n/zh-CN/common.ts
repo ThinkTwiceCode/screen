@@ -8,5 +8,6 @@ export const common = {
 
   label: {
     darkMode: '深色模式',
+    mianTechnique: '主要技术',
   },
 };
