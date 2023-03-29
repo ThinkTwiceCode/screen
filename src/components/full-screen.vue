@@ -12,7 +12,7 @@
       ref="tipEl"
       class="tip"
     >
-      {{ $t('barrage.hint.dbclickToExitFullScreen') }}
+      {{ $t('common.hint.dbclickToExitFullScreen') }}
     </div>
   </div>
 </template>
