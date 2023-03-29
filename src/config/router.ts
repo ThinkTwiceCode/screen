@@ -2,6 +2,7 @@ export const RouterName = Object.freeze({
   Root: 'Root',
   Barrage: 'Barrage',
   Clock: 'Clock',
+  Draw: 'Draw',
   Settings: 'Settings',
   Test: 'Test',
 });

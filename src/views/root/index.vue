@@ -2,6 +2,7 @@
   <div class="page-container page-root">
     <div class="card-grid">
       <CardBarrage />
+      <CardDraw />
       <CardInDevelopment />
     </div>
   </div>
@@ -9,6 +10,7 @@
 
 <script setup lang="ts">
 import CardBarrage from '@/components/page-card/barrage.vue';
+import CardDraw from '@/components/page-card/draw.vue';
 import CardInDevelopment from '@/components/page-card/in-development.vue';
 </script>
 <script lang="ts">

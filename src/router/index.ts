@@ -54,6 +54,15 @@ export const routes:TheRoutesType = [
       title: () => $t('clock.title'),
     }
   },
+  // 画布
+  {
+    name: RouterName.Draw,
+    path: '/draw',
+    component: () => import('@/views/draw/index.vue'),
+    meta: {
+      title: () => $t('draw.title'),
+    }
+  },
   // 测试
   {
     name: RouterName.Test,
