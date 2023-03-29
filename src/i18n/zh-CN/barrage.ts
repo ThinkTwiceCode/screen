@@ -1,7 +1,7 @@
 export const barrage = {
-  title: '文本弹幕',
+  title: '弹幕',
   subtitle: '',
-  description: '可以循环滚动的文本弹幕',
+  slogan: '可以循环滚动的弹幕',
 
   button: {
     fullScreenDisplay: '全屏显示',

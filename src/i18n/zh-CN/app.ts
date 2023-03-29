@@ -1,5 +1,6 @@
 export const app = {
   title: '所见',
+  slogan: '所见即所得',
   subtitleDetails: {
     variant: '坐看庭前花开花落，笑看天外云舒云卷',
     source: '《小窗幽记》',

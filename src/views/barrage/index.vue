@@ -1,55 +1,53 @@
 <template>
   <div class="page-container page-barrage">
-    <ElAlert v-if="isPortraitMode" type="warning">{{ t('barrage.hint.pleaseRotateScreen') }}</ElAlert>
-  
     <div class="barrage-wrap">
       <TextBarrage
         ref="textBarrageNode"
-        :text="text"
-        :size="textSize"
-        :speed="scrollSpeed"
-        :text-color="color.text"
-        :background-color="color.background"
+        :text="barrageStorage.text"
+        :size="barrageStorage.fontSize"
+        :speed="barrageStorage.scrollSpeed"
+        :text-color="barrageStorage.color"
+        :background-color="barrageStorage.backgroundColor"
       />
     </div>
 
     <ConfigItem :title="t('barrage.hint.pleaseEnterText')">
-      <SimpleInput v-model="text" />
+      <SimpleInput v-model="text" @blur="onInputBlur()"/>
     </ConfigItem>
 
     <ConfigItem :title="t('barrage.label.textSize')">
       <div class="slider-wrap">
         <ElSlider
-          v-model="textSize"
+          v-model="barrageStorage.fontSize"
           :min="12"
           :max="100"
         />
 
-        <span class="value-text">{{ `${textSize}px` }}</span>
+        <span class="value-text">{{ `${barrageStorage.fontSize}px` }}</span>
       </div>
     </ConfigItem>
 
     <ConfigItem :title="t('barrage.label.scrollSpeed')">
       <div class="slider-wrap">
         <ElSlider
-          v-model="scrollSpeed"
+          v-model="barrageStorage.scrollSpeed"
           :min="10"
           :max="500"
           :step="10"
         />
 
-        <span class="value-text">{{ `${scrollSpeed}px/s` }}</span>
+        <span class="value-text">{{ `${barrageStorage.scrollSpeed}px/s` }}</span>
       </div>
     </ConfigItem>
 
     <ConfigItem :title="t('barrage.label.colorPicker')">
       <div class="color-picker">
-        <ElColorPicker v-model="color.text" show-alpha />
+        <ElColorPicker v-model="barrageStorage.color" show-alpha />
         <span class="label">{{ t('barrage.label.textColor') }}</span>
       </div>
       
       <div class="color-picker">
-        <ElColorPicker v-model="color.background" show-alpha />
+        <ElColorPicker v-model="barrageStorage.backgroundColor" show-alpha />
         <span class="label">{{ t('barrage.label.backgroundColor') }}</span>
       </div>
     </ConfigItem>
@@ -70,25 +68,22 @@ import TextBarrage from '@/components/text-barrage.vue';
 
 import {
   ElSlider, ElColorPicker, ElButton,
-  ElAlert,
 } from 'element-plus';
 
 import {
-  ref, reactive,
+  ref,
 } from 'vue';
 import { t } from '@/i18n/index';
 
-import { useScreenOrientation } from '@/uses/use-screen-orientation';
+import { useBarrageStorage } from '@/uses/use-barrage-storage';
 
-const isPortraitMode = useScreenOrientation(); // 是否竖屏模式
+const barrageStorage = useBarrageStorage();
 
-const text = ref('Hello');
-const textSize = ref(30);
-const scrollSpeed = ref(30);
-const color = reactive({
-  text: '#222',
-  background: '#fff',
-});
+const text = ref(barrageStorage.text);
+
+function onInputBlur() {
+  barrageStorage.text = text.value;
+}
 
 const textBarrageNode = ref();
 

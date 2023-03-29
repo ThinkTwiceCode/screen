@@ -1,24 +1,24 @@
 <template>
-  <div
-    ref="wrapEl"
-    class="text-barrage"
-    :style="{ backgroundColor }"
-    @dblclick="onDoubleClick()"
+  <FullScreen
+    ref="fullScreenEl"
+    @resize="onResize"
   >
     <div
-      ref="fullScreenTipEl"
-      class="full-screen-tip"
-    >{{ t('barrage.hint.dbclickToExitFullScreen') }}</div>
-  
-    <div
-      ref="textEl"
-      class="text"
-      :style="textStyle"
-    >{{ text }}</div>
-  </div>
+      class="text-barrage"
+      :style="{ backgroundColor }"
+    >
+      <div
+        ref="textEl"
+        class="text"
+        :style="textStyle"
+      >{{ text }}</div>
+    </div>
+  </FullScreen>
 </template>
 
 <script setup lang="ts">
+import FullScreen from '@/components/full-screen.vue';
+
 import {
   withDefaults, defineProps, defineExpose,
   ref, computed,
@@ -26,10 +26,9 @@ import {
   nextTick,
   onMounted,
 } from 'vue';
-import { useFullscreen } from '@vueuse/core';
 import { debounce } from 'lodash';
 
-import { t } from '@/i18n/index';
+import { useAnimate } from '@/uses/use-animate';
 
 import type { Ref } from 'vue';
 
@@ -45,9 +44,12 @@ const props = withDefaults(defineProps<PropsType>(), {
   speed: 15,
 });
 
-const wrapEl = ref() as Ref<HTMLElement>;
-const fullScreenTipEl = ref() as Ref<HTMLElement>;
+const wrapSize = { width: 0, height: 0 };
+
+const fullScreenEl = ref();
 const textEl = ref() as Ref<HTMLElement>;
+
+const textAnimate = useAnimate(textEl);
 
 const textStyle = computed(() => {
   return {
@@ -57,15 +59,13 @@ const textStyle = computed(() => {
 });
 
 function updateAnimate() {
-  textEl.value.getAnimations().forEach((anim) => {
-    anim.cancel();
-  });
+  textAnimate.cancel();
 
   if (!props.text) {
     return;
   }
 
-  const wrapWidth = wrapEl.value.offsetWidth;
+  const wrapWidth = wrapSize.width;
   const textWidth = textEl.value.offsetWidth;
   const width = wrapWidth + textWidth;
   const duration = Number((width * 1000 / props.speed).toFixed(2));
@@ -80,7 +80,13 @@ function updateAnimate() {
     easing: 'linear',
     fill: 'backwards',
   };  
-  textEl.value.animate(keyframes, options);
+  textAnimate.start(keyframes, options);
+}
+
+function onResize(width: number, height: number) {
+  wrapSize.width = width;
+  wrapSize.height = height;
+  updateAnimate();
 }
 
 async function notifyUpdate() {
@@ -95,55 +101,10 @@ onMounted(() => {
   );
 });
 
-
-const uFullScreen = useFullscreen(wrapEl);
-
-function hideFullScreenTip() {
-  fullScreenTipEl.value.style.display = 'none';
-}
-function showFullScreenTip() {
-  fullScreenTipEl.value.style.display = 'block';
-  fullScreenTipEl.value.getAnimations().forEach((anim) => {
-    anim.cancel();
-  });
-
-  const animate = fullScreenTipEl.value.animate([
-    { color: '#fff' },
-    { color: '#000' },
-    { color: '#fff' },
-  ], {
-    duration: 1000,
-    iterations: 3,
-    easing: 'linear',
-    fill: 'backwards',
-  });
-
-  animate.addEventListener('finish', hideFullScreenTip);
-}
-
-function exitFullScreenDisplay() {
-  uFullScreen.exit();
-}
-function enterFullScreenDisplay() {
-  uFullScreen.enter();
-  showFullScreenTip();
-}
-
-function onDoubleClick() {
-  if (uFullScreen.isFullscreen.value) {
-    exitFullScreenDisplay();
-  } else {
-    enterFullScreenDisplay();
-  }
-}
-watch(uFullScreen.isFullscreen, (val) => {
-  if (!val) {
-    hideFullScreenTip();
-  }
-});
-
 defineExpose({
-  enterFullScreenDisplay,
+  enterFullScreenDisplay: () => {
+    fullScreenEl.value.enterFullScreenDisplay();
+  },
 });
 </script>
 <script lang="ts">
@@ -157,33 +118,16 @@ export default { name: 'TextBarrage' };
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 100%;
   background: #fff;
-
-  // &.rotate {
-  //   transform: rotate(90deg);
-  // }
-
-  &:fullscreen {
-    transform: rotate(90deg) !important;
-  }
-
-  .full-screen-tip {
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    left: 0;
-    top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    display: none;
-  }
 
   .text {
     position: absolute;
     overflow: hidden;
     text-align: center;
     white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
   }
 }
 </style>
