@@ -1,18 +1,17 @@
 <template>
   <div class="the-header">
+    <div class="left">
+      <slot name="left" />
+    </div>
+
     <div class="title-wrap">
       <h2 class="title">{{ $t('app.title') }}</h2>
-      <h3 class="subtitle" @click="showSubtitle()">{{ $t('app.subtitleDetails.variant') }}</h3>
+      <h3 class="subtitle">{{ $t('app.subtitleDetails.variant') }}</h3>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { t } from '@/i18n/index';
-
-function showSubtitle() {
-  alert(t('app.subtitleDetails.original'));
-}
 </script>
 <script lang="ts">
 export default { name: 'TheHeader' };
@@ -23,14 +22,27 @@ export default { name: 'TheHeader' };
   display: flex;
   align-items: center;
   height: var(--am-header-height);
-  padding: var(--am-padding-s);
+  padding: 0 var(--am-padding-m);
   background: var(--am-primary-color);
+
+  .left {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    margin-right: var(--am-padding-m);
+
+    :deep(img) {
+      height: 100%; 
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
 
   .title-wrap {
     color: #fff;
 
     .title {
-      font-size: 16px;  
+      font-size: 16px;
       font-weight: 600;
     }
 
