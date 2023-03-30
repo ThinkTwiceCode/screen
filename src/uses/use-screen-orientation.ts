@@ -4,7 +4,6 @@ export function useScreenOrientation(onPortrait?: Function, onLandscape?: Functi
   const isPortraitMode = ref(true); // 移动设备默认竖屏
 
   function onOrientationChange(e: any) {
-    console.log('onOrientationChange: ', e);
     isPortraitMode.value = e.matches;
     if (e.matches) { // 竖屏模式（Portrait mode）
       if (typeof onPortrait === 'function') {

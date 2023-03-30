@@ -5,15 +5,23 @@
   >
     <canvas ref="drawingBoardEl" class="drawing-board"></canvas>
 
-    <!-- <button
-      class="eraser"
-      @click="eraser = !eraser"
-    >橡皮擦-{{ eraser }}</button> -->
+    <div class="operation-bar">
+      <div class="item" @click="clear()">
+        <img class="icon" :src="IconClear" />
+      </div>
+
+      <div class="item" @click="saveToImage()">
+        <img class="icon" :src="IconSave" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import IconClear from '@/assets/icon-svg/clear.svg';
+import IconSave from '@/assets/icon-svg/save.svg';
+
+import { ref } from 'vue';
 
 import { useDraw } from '@/uses/use-draw';
 
@@ -22,7 +30,7 @@ import type { Ref } from 'vue';
 const pageEl = ref() as Ref<HTMLElement>;
 const drawingBoardEl = ref() as Ref<HTMLCanvasElement>;
 
-const { eraser } = useDraw(drawingBoardEl, pageEl);
+const { clear, saveToImage } = useDraw(drawingBoardEl);
 </script>
 <script lang="ts">
 export default { name: 'PageStraightedge' };
@@ -34,19 +42,42 @@ export default { name: 'PageStraightedge' };
   height: calc(100vh - var(--am-header-height));
   overflow: hidden;
   position: relative;
-  position: fixed;
-  z-index: 1000;
-  top: var(--am-header-height);
-  left: 0;
-  overflow: hidden;
 
   > *:not(.drawing-board) {
     position: absolute;
   }
 
-  .eraser {
-    top: 50px;
-    left: 50px;
+  .drawing-board {
+    // background: #fff;
+    width: 100%;
+    height: 100%;
+  }
+
+  .operation-bar {
+    display: flex;
+    align-items: center;
+    top: 20px;
+    right: 20px;
+
+    > * {
+      & + * {
+        margin-left: var(--am-margin-m);
+      }
+    }
+
+    > .item {
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      > .icon {
+        width: 24px;
+        object-fit: contain;
+      }
+    }
   }
 }
 </style>

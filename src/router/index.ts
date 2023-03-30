@@ -105,7 +105,6 @@ router.install = function (app: App<any>) {
 }
 
 router.beforeEach(async (_to, _from, next) => {
-  console.time('route');
   elLoadingInstance = ElLoading.service();
   $page.rendering = true;
   NProgress.start(); // 顶部进度条 - 开始
@@ -131,7 +130,6 @@ router.afterEach((_to) => {
   }
 
   nextTick(() => {
-    console.timeEnd('route');
     elLoadingInstance?.close?.();
     $page.rendering = false;
     clearInterval(nprogressTimer);
