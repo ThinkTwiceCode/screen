@@ -69,7 +69,6 @@ function updateAnimate() {
   const textWidth = textEl.value.offsetWidth;
   const width = wrapWidth + textWidth;
   const duration = Number((width * 1000 / props.speed).toFixed(2));
-  console.log('animate config: ', { wrapWidth, textWidth, speed: props.speed, duration});
   const keyframes: Keyframe[] = [
     { left: '100%' },
     { left: `-${textWidth}px` },

@@ -45,7 +45,6 @@ useResizeObserver(wrapEl, (entries) => {
   const { width, height } = entry.contentRect;
   wrapWidth.value = width;
   wrapHeight.value = height;
-  console.log('resize: ', { width, height });
   emit('resize', width, height);
 });
 

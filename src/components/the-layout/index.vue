@@ -114,9 +114,7 @@ function backToRoot() {
 }
 
 onMounted(() => {
-  console.log('VITE_TEST: ', import.meta.env.VITE_TEST);
   watch(() => appConfigStorage.darkMode, (val) => {
-    console.log('darkMode: ', val);
     const darkClassName = 'dark';
     if (val) {
       document.documentElement.classList.add(darkClassName);

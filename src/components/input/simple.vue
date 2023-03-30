@@ -32,7 +32,6 @@ watch(() => props.modelValue, (newVal) => {
 
 function onInput(e: any) {
   const { value } = e.target;
-  console.log(value);
   text.value = value;
   emit('update:modelValue', e.target.value);
 }
