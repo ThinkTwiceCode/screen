@@ -4,7 +4,7 @@ import NProgress from 'nprogress';
 import { useTitle } from '@vueuse/core';
 import { ElLoading } from 'element-plus';
 
-import { RouterName } from '@/config/router';
+import { RouterName, FROM_ROUTE_NAME_KEY } from '@/config/router';
 import { $t } from '@/i18n/index';
 
 import type { App } from 'vue';
@@ -115,7 +115,10 @@ router.beforeEach(async (_to, _from, next) => {
 });
 
 const documentTitle = useTitle($t('app.title'), { titleTemplate: `%s | ${$t('app.slogan')}` });
-router.afterEach((_to) => {
+router.afterEach((_to, _from) => {
+  Object.assign(_to.meta, {
+    [FROM_ROUTE_NAME_KEY]: _from.name,
+  });
   // 随路由变化而更改文档标题
   if (typeof _to.meta?.title === 'function') {
     const titleText = _to.meta.title() || $t('app.title');

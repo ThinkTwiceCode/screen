@@ -1,13 +1,16 @@
-import { get } from 'lodash';
 import type { Router } from 'vue-router';
 
 import { RouterName, FROM_ROUTE_NAME_KEY } from '@/config/router';
 
-export function goBack(router: Router) {
-
-  const from = get(router.currentRoute.value, `meta.${FROM_ROUTE_NAME_KEY}`) as string;
+export function navigateBack(router: Router, targetRouteName?: string) {
+  const { meta = {} } = router.currentRoute.value;
+  const from = meta[FROM_ROUTE_NAME_KEY];
   if (from) {
-    router.replace({ name: from });
+    if (targetRouteName && targetRouteName !== from) {
+      router.replace({ name: targetRouteName });
+    } else {
+      router.back();
+    }
     return;
   }
 

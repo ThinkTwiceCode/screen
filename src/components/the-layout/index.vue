@@ -13,7 +13,7 @@
             v-else
             class="header-left"
             :src="IconBack"
-            @click="backToRoot()"
+            @click="navigateBack($router)"
           />
       </Transition>
       </template>
@@ -75,8 +75,8 @@ import { ElSwitch } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { ElDrawer } from 'element-plus';
 
-import { RouterName } from '@/config/router';
 import { WebsiteLink } from '@/config/website-link';
+import { navigateBack } from '@/helps/navigation';
 
 import { useAppConfigStorage } from '@/uses/use-app-config-storage';
 
@@ -105,12 +105,6 @@ const router = useRouter();
 
 function showDrawer() {
   drawer.value = true;
-}
-
-function backToRoot() {
-  router.replace({
-    name: RouterName.Root,
-  });
 }
 
 onMounted(() => {
