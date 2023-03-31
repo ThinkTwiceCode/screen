@@ -16,8 +16,9 @@ export function format(date: DateType, fmt: string): string {
   return d.format(fmt);
 }
 
-export function formatDateTime(date: DateType) {
-  return format(date, 'YYYY-MM-DD HH:mm:ss');
+export function formatDateTime(date: DateType, plusMs: boolean = false) {
+  const fmtStr = 'YYYY-MM-DD HH:mm:ss' + (plusMs ? ':SSS' : '');
+  return format(date, fmtStr);
 }
 
 /**

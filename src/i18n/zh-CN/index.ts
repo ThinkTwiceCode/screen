@@ -5,6 +5,7 @@ import { common } from './common';
 import { barrage } from './barrage';
 import { clock } from './clock';
 import { draw } from './draw';
+import { qrcode } from './qrcode';
 // page config - End
 
 export const zh_CN = {
@@ -14,4 +15,5 @@ export const zh_CN = {
   barrage,
   clock,
   draw,
+  qrcode,
 };

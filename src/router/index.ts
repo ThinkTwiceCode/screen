@@ -63,6 +63,15 @@ export const routes:TheRoutesType = [
       title: () => $t('draw.title'),
     }
   },
+  // 二维码
+  {
+    name: RouterName.QRCode,
+    path: '/qrcode',
+    component: () => import('@/views/qrcode/index.vue'),
+    meta: {
+      title: () => $t('qrcode.title'),
+    }
+  },
   // 测试
   {
     name: RouterName.Test,

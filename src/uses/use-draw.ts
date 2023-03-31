@@ -17,15 +17,15 @@ export function useDraw(canvasEl: HTMLCanvasElement | Ref<HTMLCanvasElement>) {
     return unref(canvasEl) as HTMLCanvasElement;
   }
 
-  const getContext = () => getCanvas().getContext('2d') as CanvasRenderingContext2D;
+  const getContext = () => getCanvas().getContext('2d', { alpha: false }) as CanvasRenderingContext2D;
 
   function clear() {
     const canvas = getCanvas();
     const ctx = getContext();
-    ctx.fillStyle = '#fff';
+    // ctx.fillStyle = '#fff';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // 设置背景色，防止保存为图片时产生透明背景
-    ctx.fillStyle = '#000';
+    // ctx.fillRect(0, 0, canvas.width, canvas.height); // 设置背景色，防止保存为图片时产生透明背景
+    // ctx.fillStyle = '#000';
   }
 
   function saveToImage() {

@@ -3,6 +3,7 @@ export const RouterName = Object.freeze({
   Barrage: 'Barrage',
   Clock: 'Clock',
   Draw: 'Draw',
+  QRCode: 'QRCode',
   Settings: 'Settings',
   Test: 'Test',
 });

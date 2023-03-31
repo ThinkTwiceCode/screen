@@ -1,3 +1,31 @@
 .w-100-percent {
   width: 100%;
 }
+
+// 容器形状
+.shape-rect {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-top: 100%;
+    z-index: -1;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+// 按钮组
+.button-group {
+  display: flex;
+
+  > * {
+    flex: 1;
+  }
+}
