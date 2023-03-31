@@ -25,12 +25,14 @@
       :size="200"
       :title="$t('app.slogan')"
     >
-      <div class="switch-list">
-        <label class="switch-item">
-          <span class="label">{{ $t('common.label.darkMode') }}</span>
-          <ElSwitch v-model="appConfigStorage.darkMode" />
-        </label>
-      </div>
+      <a
+        class="github-link"
+        target="_blank"
+        :href="WebsiteLink.CurrentGithubProject"
+      >
+        <img :src="IconGithub" />
+        <span class="label">Github</span>
+      </a>
 
       <div class="main-technique">
         <h3 class="title">{{ $t('common.label.mianTechnique') }}</h3>
@@ -59,6 +61,7 @@ import TheHeader from './header.vue';
 import IconMenuToRight from '@/assets/icon-svg/menu-to-right.svg';
 import IconBack from '@/assets/icon-svg/back.svg';
 
+import IconGithub from '@/assets/icon-svg/github.svg';
 import IconVue from '@/assets/icon-svg/vue.svg';
 import IconVueUse from '@/assets/icon-svg/vue-use.svg';
 import IconVite from '@/assets/icon-svg/vite.svg';
@@ -68,17 +71,11 @@ import IconElmentPlus from '@/assets/icon-img/element-plus.png';
 import {
   withDefaults, defineProps,
   ref,
-  watch,
-  onMounted,
 } from 'vue';
-import { ElSwitch } from 'element-plus';
-import { useRouter } from 'vue-router';
 import { ElDrawer } from 'element-plus';
 
 import { WebsiteLink } from '@/config/website-link';
 import { navigateBack } from '@/helps/navigation';
-
-import { useAppConfigStorage } from '@/uses/use-app-config-storage';
 
 type PropsType = {
   showMenu?: boolean,
@@ -97,26 +94,11 @@ const MainTechniqueList = [
   { name: 'ElmentPlus', href: WebsiteLink.ElmentPlus, icon: IconElmentPlus },
 ];
 
-const appConfigStorage = useAppConfigStorage();
-
 const drawer = ref(false);
-
-const router = useRouter();
 
 function showDrawer() {
   drawer.value = true;
 }
-
-onMounted(() => {
-  watch(() => appConfigStorage.darkMode, (val) => {
-    const darkClassName = 'dark';
-    if (val) {
-      document.documentElement.classList.add(darkClassName);
-    } else {
-      document.documentElement.classList.remove(darkClassName);
-    }
-  }, { immediate: true });
-})
 </script>
 <script lang="ts">
 export default { name: 'TheLayout' };
@@ -127,11 +109,17 @@ export default { name: 'TheLayout' };
   min-height: 100vh;
 }
 
-.switch-list {
-  .switch-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.github-link {
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  img {
+    width: 24px;
+  }
+
+  .label {
+    margin-left: var(--am-margin-s);
   }
 }
 
