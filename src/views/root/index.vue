@@ -14,6 +14,10 @@ import CardBarrage from '@/components/page-card/barrage.vue';
 import CardDraw from '@/components/page-card/draw.vue';
 import CardQRCode from '@/components/page-card/qrcode.vue';
 import CardInDevelopment from '@/components/page-card/in-development.vue';
+
+import { useWaterRipple } from '@/uses/use-click-animate';
+
+useWaterRipple('page-card');
 </script>
 <script lang="ts">
 export default { name: 'PageRoot' };

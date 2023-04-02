@@ -33,10 +33,12 @@ import {
   defineProps, defineEmits,
   ref, reactive,
   watch,
+  onMounted,
 } from 'vue';
 import { ElColorPicker } from 'element-plus';
 
 import { t } from '@/i18n/index';
+import { addWaterRipple } from '@/uses/use-click-animate';
 
 import type { Ref } from 'vue';
 
@@ -88,6 +90,10 @@ function onChangeBackgroundColor(val: string | null) {
 
 const fgWrapEl = ref() as Ref<HTMLElement>;
 const bgWrapEl = ref() as Ref<HTMLElement>;
+
+onMounted(() => {
+  addWaterRipple([fgWrapEl.value, bgWrapEl.value]);
+})
 
 function onClickColorPickerWrap(e: Event, wrapEl: Ref<HTMLElement>) {
   const target = e.target as HTMLElement;
