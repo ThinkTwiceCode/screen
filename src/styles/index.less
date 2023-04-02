@@ -1,6 +1,7 @@
 @import url("./root.less");
 @import url("./utils.less");
 @import url("./transitions.less");
+@import url("./override-elment-plus.less");
 
 html, body {
   margin: 0;
@@ -9,6 +10,7 @@ html, body {
   background-color: var(--am-bg-color);
   font-size: 14px;
   line-height: 1.5;
+  transition: background-color 0.4s ease-in-out;
 }
 
 html {
@@ -69,4 +71,5 @@ p {
 
 .page-container {
   padding: var(--am-margin-m);
+  height: calc(100vh - var(--am-header-height));
 }
