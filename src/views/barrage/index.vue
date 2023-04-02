@@ -40,17 +40,13 @@
       </div>
     </ConfigItem>
 
-    <ConfigItem :title="t('barrage.label.colorPicker')">
-      <div class="color-picker">
-        <ElColorPicker v-model="barrageStorage.color" show-alpha />
-        <span class="label">{{ t('barrage.label.textColor') }}</span>
-      </div>
-      
-      <div class="color-picker">
-        <ElColorPicker v-model="barrageStorage.backgroundColor" show-alpha />
-        <span class="label">{{ t('barrage.label.backgroundColor') }}</span>
-      </div>
-    </ConfigItem>
+    <DoubleColorPicker
+      show-alpha
+      v-model:foreground-color="barrageStorage.color"
+      v-model:background-color="barrageStorage.backgroundColor"
+      :foreground-text="t('barrage.label.textColor')"
+      :background-text="t('barrage.label.backgroundColor')"
+    />
 
     <ElButton
       type="primary"
@@ -65,9 +61,10 @@ import ConfigItem from './components/config-item.vue';
 
 import SimpleInput from '@/components/input/simple.vue';
 import TextBarrage from '@/components/text-barrage.vue';
+import DoubleColorPicker from '@/components/double-color-picker.vue';
 
 import {
-  ElSlider, ElColorPicker, ElButton,
+  ElSlider, ElButton,
 } from 'element-plus';
 
 import {
